@@ -1,0 +1,77 @@
+/* Hero Section Styles */
+
+.hero-section {
+  padding-top: clamp(80px, 14vw, 160px);
+  padding-bottom: clamp(60px, 10vw, 120px);
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  min-height: calc(85vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+}
+
+.hero-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-name {
+  font-size: var(--text-sub);
+  font-weight: var(--weight-regular);
+  color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-headline {
+  font-size: var(--text-hero);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-hero);
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  max-width: 960px;
+  margin-bottom: var(--space-xl);
+}
+
+.hero-statement {
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  color: var(--color-text-secondary);
+  max-width: 640px;
+  margin-bottom: var(--space-2xl);
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* Restrained accent CTA */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--text-body);
+  font-weight: var(--weight-medium);
+  color: var(--color-accent);
+  letter-spacing: var(--tracking-normal);
+  transition: color var(--motion-fast), opacity var(--motion-fast);
+}
+
+.hero-cta:hover {
+  color: var(--color-accent-hover);
+  opacity: 0.9;
+}
+
+.hero-cta-arrow {
+  display: inline-block;
+  transition: transform var(--motion-fast);
+}
+
+.hero-cta:hover .hero-cta-arrow {
+  transform: translateX(3px);
+}

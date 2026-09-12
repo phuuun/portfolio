@@ -1,0 +1,161 @@
+/* ==========================================================================
+   Apple-Style Minimalism Dark Portfolio — Design Tokens & Base Styles
+   ========================================================================== */
+
+:root {
+  /* Color Palette — Pure black canvas, near-black surfaces, soft white & muted grey */
+  --color-canvas: #000000;
+  --color-surface: #0a0a0a;
+  --color-surface-elevated: #111111;
+  --color-surface-hover: #161616;
+  --color-text: #f5f5f7;
+  --color-text-secondary: #86868b;
+  --color-text-tertiary: #515154;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.16);
+  --color-nav-bg: rgba(0, 0, 0, 0.8);
+  
+  /* Exactly one restrained accent color, used sparingly — links & one CTA */
+  --color-accent: #2997ff;
+  --color-accent-hover: #52aaff;
+  --color-accent-muted: rgba(41, 151, 255, 0.15);
+
+  /* Typography Scale */
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  --text-hero: clamp(3rem, 7.5vw, 6rem);
+  --text-h1: clamp(2rem, 4.5vw, 3rem);
+  --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+  --text-h3: 1.375rem;
+  --text-body-lg: 1.1875rem;
+  --text-body: 1.0625rem;
+  --text-sub: 0.9375rem;
+  --text-caption: 0.8125rem;
+  --text-micro: 0.75rem;
+
+  --tracking-hero: -0.035em;
+  --tracking-tight: -0.022em;
+  --tracking-normal: -0.011em;
+  --tracking-wide: 0.02em;
+  --tracking-caps: 0.06em;
+
+  --leading-tight: 1.06;
+  --leading-snug: 1.25;
+  --leading-normal: 1.45;
+  --leading-body: 1.62;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Spacing Scale */
+  --space-3xs: 4px;
+  --space-2xs: 8px;
+  --space-xs: 12px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-section: clamp(80px, 12vw, 150px);
+  --container-max: 1040px;
+  --nav-height: 48px;
+
+  /* Border Radii */
+  --radius-surface: 14px;
+  --radius-tag: 6px;
+  --radius-btn: 980px;
+
+  /* Motion */
+  --motion-duration: 0.6s;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family);
+  background-color: var(--color-canvas);
+  color: var(--color-text);
+  font-size: 16px;
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+}
+
+/* Accessibility & Focus-Visible */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Scroll Reveal Animation Classes */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--motion-duration) var(--motion-ease),
+              transform var(--motion-duration) var(--motion-ease);
+  will-change: opacity, transform;
+}
+
+.reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
