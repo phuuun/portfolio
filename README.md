@@ -1,20 +1,24 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Portfolio
 
-# Run and deploy your AI Studio app
+Fiko Alexie van Houten's personal portfolio. Apple-style, minimalist, dark.
 
-This contains everything you need to run your app locally.
+Four pages — Main, Work, About, Contact — via lightweight hash routing (no
+router dependency). Plain React + CSS, no UI frameworks.
 
-View your app in AI Studio: https://ai.studio/apps/cf7eb866-d5a7-4693-8b6c-c25bd7486601
+## Stack
 
-## Run Locally
+- React 19 + Vite
+- Plain CSS (custom properties for the design tokens in `src/index.css`)
 
-**Prerequisites:**  Node.js
+## Run locally
 
+```
+npm install
+npm run dev
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Build
+
+```
+npm run build
+```
