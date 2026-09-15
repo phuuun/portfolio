@@ -19,7 +19,7 @@ export default function Hero() {
         {/* One quiet CTA with restrained accent color */}
         <div className="hero-actions">
           <a href="#/work" className="hero-cta">
-            <span>[View Selected Work]</span>
+            <span>View Selected Work</span>
             <span className="hero-cta-arrow" aria-hidden="true">&rsaquo;</span>
           </a>
         </div>

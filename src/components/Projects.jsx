@@ -1,42 +1,40 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import './Projects.css';
 
-/* Clearly marked project placeholders */
 const PROJECTS = [
   {
-    id: 'project-1',
-    title: '[Project One: Obsidian Notes Engine]',
-    description: '[High-throughput local-first markdown indexer with sub-millisecond AST graph parsing.]',
-    tags: ['React', 'Web Workers', 'WebAssembly', 'IndexedDB'],
-    demoUrl: 'https://example.com/project-one',
-    githubUrl: 'https://github.com/[yourhandle]/project-one',
+    id: 'owi',
+    title: 'owi',
+    description: 'Checks Indonesian political claims against open evidence — fact-check archives, official releases, court rulings, and verified reporting. Says so when no evidence exists instead of guessing.',
+    tags: ['React', 'TypeScript', 'Vite'],
+    githubUrl: 'https://github.com/phuuun/owi',
+    image: '/projects/owi.png',
     previewLabel: 'FRAME PREVIEW — 01',
   },
   {
-    id: 'project-2',
-    title: '[Project Two: Canvas Precision Editor]',
-    description: '[Vector manipulation tool for micro-layout typography, grid alignment, and bezier curves.]',
-    tags: ['Canvas API', 'TypeScript', 'GLSL', 'Math2D'],
-    demoUrl: 'https://example.com/project-two',
-    githubUrl: 'https://github.com/[yourhandle]/project-two',
+    id: 'glitchmare',
+    title: 'Glitchmare',
+    description: 'A Godot 2D game project built from a clean engine layout, with custom sprites, scenes, and audio.',
+    tags: ['Godot', 'GDScript', 'Game Dev'],
+    githubUrl: 'https://github.com/phuuun/Glitchmare',
     previewLabel: 'FRAME PREVIEW — 02',
   },
   {
-    id: 'project-3',
-    title: '[Project Two: Monolith Audio Synthesizer]',
-    description: '[Real-time additive sound design studio running on web audio audio-worklet threads.]',
-    tags: ['Web Audio API', 'AudioWorklet', 'Wasm', 'DSP'],
-    demoUrl: 'https://example.com/project-three',
-    githubUrl: 'https://github.com/[yourhandle]/project-three',
+    id: 'notredstone2d',
+    title: 'NotRedstone2D',
+    description: 'A 2D redstone-style circuit simulator in Godot — levers, dust, lamps, and repeaters wired into working logic.',
+    tags: ['Godot', 'GDScript', 'Simulation'],
+    githubUrl: 'https://github.com/phuuun/NotRedstone2D',
+    image: '/projects/notredstone2d.png',
     previewLabel: 'FRAME PREVIEW — 03',
   },
   {
-    id: 'project-4',
-    title: '[Project Four: Chronicle Design System]',
-    description: '[A minimal, token-driven component architecture engineered for dark interfaces.]',
-    tags: ['Design Systems', 'CSS Tokens', 'Accessibility', 'React'],
-    demoUrl: 'https://example.com/project-four',
-    githubUrl: 'https://github.com/[yourhandle]/project-four',
+    id: 'superhoop',
+    title: 'SuperHoop',
+    description: 'An embedded system project for basketball scoring and game management.',
+    tags: ['Embedded System', 'Hardware'],
+    githubUrl: 'https://github.com/phuuun/superhoop',
+    image: '/projects/superhoop.png',
     previewLabel: 'FRAME PREVIEW — 04',
   },
 ];
@@ -66,31 +64,35 @@ function ProjectItem({ project }) {
 
   return (
     <article className="project-item reveal" ref={itemRef}>
-      {/* Generous empty frame / preview canvas */}
-      <div
-        className="project-frame"
-        role="img"
-        aria-label={`Preview frame for ${project.title}`}
-      >
-        <div className="frame-preview">
-          <div className="frame-preview-header">
-            <div className="frame-dots">
-              <span className="frame-dot" />
-              <span className="frame-dot" />
-              <span className="frame-dot" />
+      <div className="project-frame">
+        {project.image ? (
+          <img
+            className="project-frame-img"
+            src={project.image}
+            alt={`Screenshot of ${project.title}`}
+            loading="lazy"
+          />
+        ) : (
+          <div className="frame-preview" role="img" aria-label={`Preview frame for ${project.title}`}>
+            <div className="frame-preview-header">
+              <div className="frame-dots">
+                <span className="frame-dot" />
+                <span className="frame-dot" />
+                <span className="frame-dot" />
+              </div>
+              <span className="frame-label">{project.previewLabel}</span>
             </div>
-            <span className="frame-label">{project.previewLabel}</span>
+            <div className="frame-preview-body">
+              <div className="frame-line long" />
+              <div className="frame-line medium" />
+              <div className="frame-line short" />
+            </div>
+            <div className="frame-preview-footer">
+              <span className="frame-badge">PREVIEW UNAVAILABLE</span>
+              <span className="frame-badge">SEE SOURCE</span>
+            </div>
           </div>
-          <div className="frame-preview-body">
-            <div className="frame-line long" />
-            <div className="frame-line medium" />
-            <div className="frame-line short" />
-          </div>
-          <div className="frame-preview-footer">
-            <span className="frame-badge">VIEWPORT: 1440 &times; 900</span>
-            <span className="frame-badge">SYSTEM SCALE: 1.0</span>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Project Meta Information */}
@@ -109,23 +111,14 @@ function ProjectItem({ project }) {
 
           <div className="project-links">
             <a
-              href={project.demoUrl}
-              className="project-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`View live deployment of ${project.title}`}
-            >
-              <span>View Live</span>
-              <span className="project-link-arrow" aria-hidden="true">&rsaquo;</span>
-            </a>
-            <a
               href={project.githubUrl}
-              className="project-link project-link-secondary"
+              className="project-link"
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`View source code for ${project.title} on GitHub`}
             >
-              GitHub
+              <span>GitHub</span>
+              <span className="project-link-arrow" aria-hidden="true">&rsaquo;</span>
             </a>
           </div>
         </div>
