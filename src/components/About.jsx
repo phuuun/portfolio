@@ -12,13 +12,12 @@ export default function About() {
         </div>
 
         <div className="about-content">
-          {/* Placeholder: Short editorial paragraph, restrained */}
           <p className="about-lead">
-            [I am an engineer and interface designer dedicated to software that feels immediate, calm, and durable. My work balances systems architecture with typographic precision, eliminating arbitrary ornament in service of focused workflows.]
+            I'm a Computer Science student minoring in AI, building things across web, games, and machine learning rather than sticking to one lane.
           </p>
 
           <p className="about-body">
-            [Previously led client engineering on core design platforms, real-time audio tooling, and browser renderers. Currently consulting with product teams on high-fidelity web experiences and custom design engineering systems.]
+            My projects range from an evidence-based fact-checking tool built with React and TypeScript, to 2D games and simulations built in Godot, to small Python tools. I like picking whatever stack actually fits the problem.
           </p>
         </div>
       </div>

@@ -17,7 +17,7 @@ export default function Footer() {
         <div className="footer-meta">
           <span className="footer-status">
             <span className="footer-status-dot" aria-hidden="true" />
-            <span>[Available for new projects]</span>
+            <span>Available for new projects</span>
           </span>
 
           <button
