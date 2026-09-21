@@ -1,11 +1,7 @@
 /* About Section Styles */
 
 .about-section {
-  padding-top: var(--space-section);
-  padding-bottom: var(--space-section);
-  padding-left: var(--space-md);
-  padding-right: var(--space-md);
-  border-top: 1px solid var(--color-border);
+  padding: clamp(64px, 10vw, 120px) var(--space-md) var(--space-section);
 }
 
 .about-container {
@@ -13,36 +9,74 @@
   margin: 0 auto;
 }
 
-.about-header {
-  margin-bottom: var(--space-2xl);
-}
-
-.about-section-title {
-  font-size: var(--text-h2);
+.about-title {
+  font-size: var(--text-h1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-tight);
-  color: var(--color-text);
+  letter-spacing: var(--tracking-hero);
   line-height: var(--leading-tight);
+  max-width: 720px;
+  margin-bottom: var(--space-xl);
 }
 
 .about-content {
-  max-width: 720px;
+  max-width: 680px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .about-lead {
   font-size: var(--text-body-lg);
-  font-weight: var(--weight-regular);
   line-height: var(--leading-body);
-  color: var(--color-text);
   letter-spacing: var(--tracking-normal);
 }
 
 .about-body {
-  font-size: var(--text-body);
-  font-weight: var(--weight-regular);
   line-height: var(--leading-body);
   color: var(--color-text-secondary);
+}
+
+.skills {
+  margin-top: var(--space-3xl);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.skill-group {
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-surface);
+  background: linear-gradient(180deg, var(--color-surface-elevated), var(--color-surface));
+}
+
+.skill-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-sm);
+}
+
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  font-size: var(--text-sub);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 860px) {
+  .skills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .skills {
+    grid-template-columns: 1fr;
+  }
 }

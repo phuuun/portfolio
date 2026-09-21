@@ -1,128 +1,151 @@
+import { useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { CATEGORIES, PROJECTS } from '../data/projects.js';
 import './Projects.css';
-
-const PROJECTS = [
-  {
-    id: 'owi',
-    title: 'owi',
-    description: 'Checks Indonesian political claims against open evidence — fact-check archives, official releases, court rulings, and verified reporting. Says so when no evidence exists instead of guessing.',
-    tags: ['React', 'TypeScript', 'Vite'],
-    githubUrl: 'https://github.com/phuuun/owi',
-    image: '/projects/owi.png',
-    previewLabel: 'FRAME PREVIEW — 01',
-  },
-  {
-    id: 'glitchmare',
-    title: 'Glitchmare',
-    description: 'A Godot 2D game project built from a clean engine layout, with custom sprites, scenes, and audio.',
-    tags: ['Godot', 'GDScript', 'Game Dev'],
-    githubUrl: 'https://github.com/phuuun/Glitchmare',
-    previewLabel: 'FRAME PREVIEW — 02',
-  },
-  {
-    id: 'notredstone2d',
-    title: 'NotRedstone2D',
-    description: 'A 2D redstone-style circuit simulator in Godot — levers, dust, lamps, and repeaters wired into working logic.',
-    tags: ['Godot', 'GDScript', 'Simulation'],
-    githubUrl: 'https://github.com/phuuun/NotRedstone2D',
-    image: '/projects/notredstone2d.png',
-    previewLabel: 'FRAME PREVIEW — 03',
-  },
-  {
-    id: 'superhoop',
-    title: 'SuperHoop',
-    description: 'An embedded system project for basketball scoring and game management.',
-    tags: ['Embedded System', 'Hardware'],
-    githubUrl: 'https://github.com/phuuun/superhoop',
-    image: '/projects/superhoop.png',
-    previewLabel: 'FRAME PREVIEW — 04',
-  },
-];
 
 export default function Projects() {
   const headerRef = useScrollReveal();
+  const [filter, setFilter] = useState('All');
+  const shown = PROJECTS.filter((p) => filter === 'All' || p.categories.includes(filter));
+  const featured = shown.filter((p) => p.image);
+  const rest = shown.filter((p) => !p.image);
 
   return (
-    <section id="work" className="work-section" aria-label="Selected Work">
+    <section id="work" className="work-section" aria-label="Work">
       <div className="work-container">
-        <div className="work-header reveal" ref={headerRef}>
-          <h2 className="work-section-title">Selected Work</h2>
-        </div>
+        <header className="work-header reveal" ref={headerRef}>
+          <p className="eyebrow">Work</p>
+          <h1 className="work-title">Everything I've built.</h1>
+          <p className="work-intro">
+            {PROJECTS.length} projects across machine learning, the web, games, hardware and
+            research. Newest first.
+          </p>
 
-        <div className="work-list">
-          {PROJECTS.map((project) => (
-            <ProjectItem key={project.id} project={project} />
-          ))}
-        </div>
+          <div className="filter-bar" role="group" aria-label="Filter projects by category">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={`filter-chip ${filter === c ? 'is-active' : ''}`}
+                aria-pressed={filter === c}
+                onClick={() => setFilter(c)}
+              >
+                {c}
+                <span className="filter-count">
+                  {c === 'All' ? PROJECTS.length : PROJECTS.filter((p) => p.categories.includes(c)).length}
+                </span>
+              </button>
+            ))}
+          </div>
+        </header>
+
+        {featured.length > 0 && (
+          <div className="featured-list">
+            {featured.map((p, i) => (
+              <FeaturedItem key={`${filter}-${p.id}`} project={p} index={i} />
+            ))}
+          </div>
+        )}
+
+        {rest.length > 0 && (
+          <div className="project-grid">
+            {rest.map((p) => (
+              <ProjectCard key={`${filter}-${p.id}`} project={p} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-function ProjectItem({ project }) {
-  const itemRef = useScrollReveal();
+function FeaturedItem({ project, index }) {
+  const ref = useScrollReveal(0.1);
+  // Picture opens the live demo, or the first link (GitHub) when there's no demo.
+  const target = project.links.find((l) => l.label === 'Live demo') ?? project.links[0];
+  const img = <img src={project.image} alt={`Screenshot of ${project.title}`} loading="lazy" />;
 
   return (
-    <article className="project-item reveal" ref={itemRef}>
-      <div className="project-frame">
-        {project.image ? (
-          <img
-            className="project-frame-img"
-            src={project.image}
-            alt={`Screenshot of ${project.title}`}
-            loading="lazy"
-          />
-        ) : (
-          <div className="frame-preview" role="img" aria-label={`Preview frame for ${project.title}`}>
-            <div className="frame-preview-header">
-              <div className="frame-dots">
-                <span className="frame-dot" />
-                <span className="frame-dot" />
-                <span className="frame-dot" />
-              </div>
-              <span className="frame-label">{project.previewLabel}</span>
-            </div>
-            <div className="frame-preview-body">
-              <div className="frame-line long" />
-              <div className="frame-line medium" />
-              <div className="frame-line short" />
-            </div>
-            <div className="frame-preview-footer">
-              <span className="frame-badge">PREVIEW UNAVAILABLE</span>
-              <span className="frame-badge">SEE SOURCE</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Project Meta Information */}
-      <div className="project-meta">
-        <h3 className="project-title">{project.title}</h3>
+    <article className={`featured-item reveal ${index % 2 ? 'is-flipped' : ''}`} ref={ref}>
+      {target ? (
+        <a
+          className="featured-frame"
+          href={target.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${target.label} for ${project.title} (opens in a new tab)`}
+        >
+          {img}
+          <span className="featured-frame-cta" aria-hidden="true">Open {target.label} ↗</span>
+        </a>
+      ) : (
+        <div className="featured-frame">{img}</div>
+      )}
+      <div className="featured-meta">
+        <ProjectHeading project={project} />
         <p className="project-description">{project.description}</p>
-
-        <div className="project-footer">
-          <ul className="project-tags" aria-label="Technologies used">
-            {project.tags.map((tag) => (
-              <li key={tag} className="project-tag">
-                {tag}
-              </li>
-            ))}
-          </ul>
-
-          <div className="project-links">
-            <a
-              href={project.githubUrl}
-              className="project-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`View source code for ${project.title} on GitHub`}
-            >
-              <span>GitHub</span>
-              <span className="project-link-arrow" aria-hidden="true">&rsaquo;</span>
-            </a>
-          </div>
-        </div>
+        <Tags tags={project.tags} />
+        <Links project={project} />
       </div>
     </article>
+  );
+}
+
+function ProjectCard({ project }) {
+  const ref = useScrollReveal(0.1);
+
+  return (
+    <article className="project-card reveal" ref={ref}>
+      <ProjectHeading project={project} />
+      <p className="project-description">{project.description}</p>
+      <div className="project-card-footer">
+        <Tags tags={project.tags} />
+        <Links project={project} />
+      </div>
+    </article>
+  );
+}
+
+function ProjectHeading({ project }) {
+  return (
+    <div className="project-heading">
+      <p className="project-period">
+        <span>{project.period}</span>
+        {project.status && <span className="project-status">{project.status}</span>}
+        {project.note && <span className="project-note">{project.note}</span>}
+      </p>
+      <h2 className="project-title">{project.title}</h2>
+    </div>
+  );
+}
+
+function Tags({ tags }) {
+  return (
+    <ul className="project-tags" aria-label="Technologies used">
+      {tags.map((t) => (
+        <li key={t} className="project-tag">{t}</li>
+      ))}
+    </ul>
+  );
+}
+
+function Links({ project }) {
+  if (project.links.length === 0) return null;
+  return (
+    <div className="project-links">
+      {project.links.map((l, i) => (
+        <a
+          key={l.url}
+          href={l.url}
+          className={`project-link ${i === 0 ? '' : 'is-secondary'}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${l.label} for ${project.title} (opens in a new tab)`}
+        >
+          {l.label}
+          <span className="project-link-arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
   );
 }
