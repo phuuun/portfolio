@@ -19,6 +19,8 @@
   --color-accent: #2997ff;
   --color-accent-hover: #52aaff;
   --color-accent-muted: rgba(41, 151, 255, 0.15);
+  --color-accent-glow: rgba(41, 151, 255, 0.35);
+  --color-live: #30d158;
 
   /* Typography Scale */
   --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
@@ -125,6 +127,21 @@ button {
 img, svg {
   display: block;
   max-width: 100%;
+}
+
+/* Small uppercase label above section titles */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
+}
+
+::selection {
+  background: var(--color-accent-muted);
+  color: var(--color-text);
 }
 
 /* Scroll Reveal Animation Classes */

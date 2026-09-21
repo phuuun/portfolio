@@ -16,7 +16,8 @@ export default function Contact() {
     <section id="contact" className="contact-section" aria-label="Contact Information">
       <div className="contact-container reveal" ref={revealRef}>
         <div className="contact-header">
-          <h2 className="contact-section-title">Contact</h2>
+          <p className="eyebrow">Contact</p>
+          <h1 className="contact-section-title">Let's build something.</h1>
         </div>
 
         <p className="contact-statement">
