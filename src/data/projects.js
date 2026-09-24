@@ -1,9 +1,11 @@
-// Newest first. Projects with an `image` get a large screenshot frame on /work.
+// Grouped by `date` on /work, newest first: the start month for WIP projects (`status`), the
+// finish month for finished ones. Projects with an `image` get a large screenshot frame.
 export const CATEGORIES = ['All', 'AI & ML', 'Web', 'Games', 'Hardware', 'Research'];
 
 export const PROJECTS = [
   {
     id: 'owi',
+    date: '2026-09',
     title: 'OWI',
     period: 'Sep 2026 — Present',
     status: 'In progress',
@@ -19,6 +21,7 @@ export const PROJECTS = [
   },
   {
     id: 'superhoop',
+    date: '2026-09',
     title: 'SuperHoop',
     period: 'Sep 2026 — Present',
     status: 'In progress',
@@ -31,6 +34,7 @@ export const PROJECTS = [
   },
   {
     id: 'notredstone2d',
+    date: '2026-06',
     title: 'NotRedstone2D',
     period: 'Jun 2026 — Present',
     status: 'In progress',
@@ -43,8 +47,10 @@ export const PROJECTS = [
   },
   {
     id: 'glitchmare',
+    date: '2026-08',
     title: 'Glitchmare',
-    period: '2026',
+    period: 'Aug 2026 — Present',
+    status: 'In progress',
     categories: ['Games'],
     description: 'A 2D pixel-art game in Unity with custom sprites, animations, scenes and audio.',
     tags: ['Unity', 'C#', 'Pixel Art'],
@@ -52,6 +58,7 @@ export const PROJECTS = [
   },
   {
     id: 'kratt',
+    date: '2026-08',
     title: 'Kratt',
     image: '/projects/kratt.jpg',
     period: 'Jul — Aug 2026',
@@ -67,8 +74,10 @@ export const PROJECTS = [
   },
   {
     id: 'nba',
+    date: '2026-07',
     title: 'NBA Rookie Career Longevity',
     image: '/projects/nba.jpg',
+    video: '/projects/nba.mp4',
     period: 'May — Jul 2026',
     categories: ['AI & ML'],
     description:
@@ -84,8 +93,10 @@ export const PROJECTS = [
   },
   {
     id: 'bone-fracture',
+    date: '2026-07',
     title: 'Bone Fracture Detection',
     image: '/projects/bone-fracture.jpg',
+    video: '/projects/bone-fracture.mp4',
     period: 'Feb — Jul 2026',
     categories: ['AI & ML'],
     description:
@@ -95,6 +106,7 @@ export const PROJECTS = [
   },
   {
     id: 'beenet',
+    date: '2026-07',
     title: 'BeeNET',
     period: 'Feb — Jul 2026',
     categories: ['Web'],
@@ -107,8 +119,10 @@ export const PROJECTS = [
   },
   {
     id: 'saysomething',
+    date: '2026-06',
     title: 'SaySomething',
     image: '/projects/saysomething.jpg',
+    video: '/projects/saysomething.mp4',
     period: 'Feb — Jun 2026',
     categories: ['AI & ML', 'Web'],
     description:
@@ -121,18 +135,26 @@ export const PROJECTS = [
   },
   {
     id: 'c-vs-python',
+    date: '2026-06',
     title: 'C vs Python Study',
+    image: '/projects/c-vs-python.jpg',
+    video: '/projects/c-vs-python.mp4',
     period: 'Feb — Jun 2026',
     categories: ['Research'],
     description:
       'A controlled study comparing C and Python on execution speed and development time, with 20 participant groups solving the same problems in both languages.',
     tags: ['C', 'Python', 'Jupyter', 'Statistics'],
-    links: [{ label: 'GitHub', url: 'https://github.com/phuuun/C-vs-Python-Study' }],
+    links: [
+      { label: 'Paper', url: '/projects/c-vs-python-paper.pdf' },
+      { label: 'GitHub', url: 'https://github.com/phuuun/C-vs-Python-Study' },
+    ],
   },
   {
     id: 'ihsg-roguelite',
+    date: '2026-02',
     title: 'IHSG Roguelite',
-    period: 'Feb 2026',
+    period: 'Feb 2026 — Present',
+    status: 'In progress',
     categories: ['Games'],
     description:
       'A stock-market roguelite themed on the Indonesian stock index — sectors, market events, inflation and diversification cards across a run of years.',
@@ -141,6 +163,7 @@ export const PROJECTS = [
   },
   {
     id: 'skibidifinder',
+    date: '2025-06',
     title: 'SkibidiFinder',
     period: 'Feb — Jun 2025',
     note: 'HCI coursework',
