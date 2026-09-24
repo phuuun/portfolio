@@ -3,12 +3,20 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import { CATEGORIES, PROJECTS } from '../data/projects.js';
 import './Projects.css';
 
+const TABS = ['Finished', 'WIP'];
+
 export default function Projects() {
   const headerRef = useScrollReveal();
+  const [tab, setTab] = useState('Finished');
   const [filter, setFilter] = useState('All');
-  const shown = PROJECTS.filter((p) => filter === 'All' || p.categories.includes(filter));
-  const featured = shown.filter((p) => p.image);
-  const rest = shown.filter((p) => !p.image);
+  const inTab = PROJECTS.filter((p) => !p.status === (tab === 'Finished'));
+  const count = (c) => (c === 'All' ? inTab.length : inTab.filter((p) => p.categories.includes(c)).length);
+  const shown = inTab
+    .filter((p) => filter === 'All' || p.categories.includes(filter))
+    .sort((a, b) => b.date.localeCompare(a.date));
+  // Gallery-style: one group per month, newest on top. Array order is kept within a month.
+  const groups = new Map();
+  for (const p of shown) groups.set(p.date, [...(groups.get(p.date) ?? []), p]);
 
   return (
     <section id="work" className="work-section" aria-label="Work">
@@ -21,8 +29,28 @@ export default function Projects() {
             research. Newest first.
           </p>
 
+          <div className="filter-bar tab-bar" role="group" aria-label="Show finished or in-progress projects">
+            {TABS.map((t) => (
+              <button
+                key={t}
+                type="button"
+                className={`filter-chip ${tab === t ? 'is-active' : ''}`}
+                aria-pressed={tab === t}
+                onClick={() => {
+                  setTab(t);
+                  setFilter('All');
+                }}
+              >
+                {t}
+                <span className="filter-count">
+                  {PROJECTS.filter((p) => !p.status === (t === 'Finished')).length}
+                </span>
+              </button>
+            ))}
+          </div>
+
           <div className="filter-bar" role="group" aria-label="Filter projects by category">
-            {CATEGORIES.map((c) => (
+            {CATEGORIES.filter((c) => count(c) > 0).map((c) => (
               <button
                 key={c}
                 type="button"
@@ -31,42 +59,71 @@ export default function Projects() {
                 onClick={() => setFilter(c)}
               >
                 {c}
-                <span className="filter-count">
-                  {c === 'All' ? PROJECTS.length : PROJECTS.filter((p) => p.categories.includes(c)).length}
-                </span>
+                <span className="filter-count">{count(c)}</span>
               </button>
             ))}
           </div>
         </header>
 
-        {featured.length > 0 && (
-          <div className="featured-list">
-            {featured.map((p, i) => (
-              <FeaturedItem key={`${filter}-${p.id}`} project={p} index={i} />
-            ))}
-          </div>
-        )}
-
-        {rest.length > 0 && (
-          <div className="project-grid">
-            {rest.map((p) => (
-              <ProjectCard key={`${filter}-${p.id}`} project={p} />
-            ))}
-          </div>
-        )}
+        {[...groups].map(([date, projects]) => (
+          <DateGroup key={`${tab}-${filter}-${date}`} date={date} projects={projects} />
+        ))}
       </div>
     </section>
   );
 }
 
-function FeaturedItem({ project, index }) {
+function DateGroup({ date, projects }) {
+  const featured = projects.filter((p) => p.image);
+  const rest = projects.filter((p) => !p.image);
+  const [year, month] = date.split('-');
+  const label = month
+    ? new Date(year, month - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+    : year;
+
+  return (
+    <section className="date-group" aria-label={label}>
+      <h2 className="date-heading">{label}</h2>
+      {featured.length > 0 && (
+        <div className="featured-list">
+          {featured.map((p) => (
+            <FeaturedItem key={p.id} project={p} />
+          ))}
+        </div>
+      )}
+      {rest.length > 0 && (
+        <div className="project-grid">
+          {rest.map((p) => (
+            <ProjectCard key={p.id} project={p} />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function FeaturedItem({ project }) {
   const ref = useScrollReveal(0.1);
   // Picture opens the live demo, or the first link (GitHub) when there's no demo.
   const target = project.links.find((l) => l.label === 'Live demo') ?? project.links[0];
-  const img = <img src={project.image} alt={`Screenshot of ${project.title}`} loading="lazy" />;
+  // Videos loop muted with no controls, so they can't be paused. The screenshot shows while it loads.
+  const img = project.video ? (
+    <video
+      src={project.video}
+      poster={project.image}
+      autoPlay
+      muted
+      loop
+      playsInline
+      disablePictureInPicture
+      aria-label={`Video of ${project.title}`}
+    />
+  ) : (
+    <img src={project.image} alt={`Screenshot of ${project.title}`} loading="lazy" />
+  );
 
   return (
-    <article className={`featured-item reveal ${index % 2 ? 'is-flipped' : ''}`} ref={ref}>
+    <article className="featured-item reveal" ref={ref}>
       {target ? (
         <a
           className="featured-frame"
@@ -114,7 +171,7 @@ function ProjectHeading({ project }) {
         {project.status && <span className="project-status">{project.status}</span>}
         {project.note && <span className="project-note">{project.note}</span>}
       </p>
-      <h2 className="project-title">{project.title}</h2>
+      <h3 className="project-title">{project.title}</h3>
     </div>
   );
 }

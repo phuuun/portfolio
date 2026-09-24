@@ -65,29 +65,47 @@
   opacity: 0.6;
 }
 
-/* Featured: large screenshot + meta side by side */
-.featured-list {
+.tab-bar {
+  margin-bottom: var(--space-sm);
+}
+
+/* Gallery: one group per month, date header sticks under the nav while you scroll it */
+.date-group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xl);
+  gap: var(--space-xl);
   margin-bottom: var(--space-3xl);
+}
+
+.date-heading {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 10;
+  padding: var(--space-sm) 0;
+  background: var(--color-canvas);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Featured: large screenshot + meta side by side */
+.featured-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3xl) var(--space-xl);
 }
 
 .featured-item {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  gap: var(--space-xl);
-  align-items: center;
-}
-
-.featured-item.is-flipped .featured-frame {
-  order: 2;
+  gap: var(--space-md);
+  align-content: start;
 }
 
 .featured-frame {
   position: relative;
   display: block;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   border-radius: var(--radius-surface);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -96,7 +114,8 @@
   transition: border-color var(--motion-fast), transform var(--motion-duration) var(--motion-ease);
 }
 
-.featured-frame img {
+.featured-frame img,
+.featured-frame video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -107,7 +126,13 @@
   border-color: var(--color-border-hover);
 }
 
-.featured-item:hover .featured-frame img {
+/* Clicks pass through to the link, so the right-click menu can't pause it */
+.featured-frame video {
+  pointer-events: none;
+}
+
+.featured-item:hover .featured-frame img,
+.featured-item:hover .featured-frame video {
   transform: scale(1.025);
 }
 
@@ -293,15 +318,7 @@
 }
 
 @media (max-width: 800px) {
-  .featured-item {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  .featured-item.is-flipped .featured-frame {
-    order: 0;
-  }
-
+  .featured-list,
   .project-grid {
     grid-template-columns: 1fr;
   }
