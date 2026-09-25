@@ -61,6 +61,7 @@ export const PROJECTS = [
     date: '2026-08',
     title: 'Kratt',
     image: '/projects/kratt.jpg',
+    video: '/projects/kratt.mp4',
     period: 'Jul — Aug 2026',
     note: 'UNESCO Youth Hackathon 2026',
     categories: ['AI & ML', 'Web'],
