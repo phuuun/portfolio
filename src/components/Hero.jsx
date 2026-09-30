@@ -12,12 +12,11 @@ export default function Hero() {
   return (
     <>
       <section id="hero" className="hero-section" aria-label="Introduction">
-        <div className="hero-glow" aria-hidden="true" />
         <div className="hero-container reveal" ref={revealRef}>
           <p className="eyebrow">Fiko Alexie van Houten</p>
 
           <h1 className="hero-headline">
-            I get <span className="hero-gradient">shit done.</span>
+            I get shit done.
           </h1>
 
           <p className="hero-statement">
