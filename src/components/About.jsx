@@ -22,14 +22,12 @@ export default function About() {
           <div className="about-content">
             <p className="about-lead">
               I'm a Computer Science student minoring in AI, building things across machine learning,
-              the web, games and hardware rather than sticking to one lane.
+              the web, games and hardware. Trust me, anything you give me, I'll handle.
             </p>
             <p className="about-body">
-              Lately that's meant tools for media literacy — spotting coordinated comment sections
-              and bot activity — alongside a fine-tuned RoBERTa toxicity classifier, an X-ray fracture
-              detector that deliberately skips deep learning, a Godot redstone simulator and an
-              Arduino basketball arcade. I care about tools that explain their answers and say so
-              when they don't know.
+              I pick up whatever the problem needs — a new framework, a speech model, an Arduino
+              sensor. What drives me is learning and understanding more, because the more I build,
+              the more I realise how little I actually know.
             </p>
           </div>
         </div>
