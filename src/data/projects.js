@@ -1,6 +1,6 @@
 // Grouped by `date` on /work, newest first: the start month for WIP projects (`status`), the
 // finish month for finished ones. Projects with an `image` get a large screenshot frame.
-export const CATEGORIES = ['All', 'AI & ML', 'Web', 'Games', 'Hardware', 'Research'];
+export const CATEGORIES = ['All', 'AI & ML', 'Web', 'Games', 'Mobile', 'Hardware', 'Research'];
 
 export const PROJECTS = [
   {
@@ -45,6 +45,22 @@ export const PROJECTS = [
       'The Timezone basketball arcade machine, rebuilt small. A projector sets the scene, you shoot a mini ball at a mini hoop, and an Arduino with an ultrasonic sensor decides whether it went in.',
     tags: ['Arduino', 'Embedded Systems', 'Sensors'],
     links: [{ label: 'GitHub', url: 'https://github.com/MakiKainan/superhoop' }],
+  },
+  {
+    id: 'tsundoku',
+    date: '2026-09',
+    title: 'Tsundoku',
+    image: '/projects/tsundoku.jpg',
+    video: '/projects/tsundoku.mp4',
+    period: 'Sep 2026',
+    categories: ['Mobile'],
+    description:
+      'A personal library for the books you own, the ones you have read, and the pile you still mean to get to. Scan a barcode to add a book, then log finish dates, ratings, reviews and rereads — with import from Goodreads and StoryGraph.',
+    tags: ['Kotlin Multiplatform', 'Compose Multiplatform', 'Android', 'Open Library API'],
+    links: [
+      { label: 'Download', url: 'https://github.com/phuuun/Tsundoku/releases' },
+      { label: 'GitHub', url: 'https://github.com/phuuun/Tsundoku' },
+    ],
   },
   {
     id: 'notredstone2d',
