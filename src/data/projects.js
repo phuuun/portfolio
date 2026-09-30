@@ -21,6 +21,19 @@ export const PROJECTS = [
     ],
   },
   {
+    id: 'beenoise',
+    date: '2026-09',
+    title: 'BeeNoise',
+    period: 'Sep 2026 — Present',
+    status: 'In progress',
+    note: 'Speech Recognition coursework',
+    categories: ['AI & ML'],
+    description:
+      'Give it a noisy vlog, lecture or group conversation and it returns denoised audio plus timestamped subtitles with a speaker name on every line — enrolled people by name, everyone else as Speaker 1, Speaker 2.',
+    tags: ['Python', 'Whisper', 'pyannote', 'DeepFilterNet'],
+    links: [{ label: 'GitHub', url: 'https://github.com/gretil3/BeeNoise' }],
+  },
+  {
     id: 'superhoop',
     date: '2026-09',
     title: 'SuperHoop',

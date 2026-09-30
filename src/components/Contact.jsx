@@ -7,6 +7,11 @@ const SOCIAL_LINKS = [
     url: 'https://github.com/phuuun',
     label: 'github.com/phuuun',
   },
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/fikovanhouten/',
+    label: 'linkedin.com/in/fikovanhouten',
+  },
 ];
 
 export default function Contact() {
@@ -26,9 +31,9 @@ export default function Contact() {
 
         <div className="contact-email-wrapper">
           <a
-            href="mailto:phuuun0@gmail.com"
+            href="mailto:fikovanhouten2006@gmail.com"
             className="contact-email-link"
-            aria-label="Send email to phuuun0@gmail.com"
+            aria-label="Send email to fikovanhouten2006@gmail.com"
           >
             <svg
               className="contact-email-icon"
@@ -38,7 +43,7 @@ export default function Contact() {
               <rect x="2" y="4" width="20" height="16" rx="3" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
-            <span>phuuun0@gmail.com</span>
+            <span>fikovanhouten2006@gmail.com</span>
           </a>
         </div>
 
