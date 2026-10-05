@@ -74,8 +74,8 @@ export default function Projects() {
 }
 
 function DateGroup({ date, projects }) {
-  const featured = projects.filter((p) => p.image);
-  const rest = projects.filter((p) => !p.image);
+  const featured = projects.filter((p) => p.image || p.video);
+  const rest = projects.filter((p) => !p.image && !p.video);
   const [year, month] = date.split('-');
   const label = month
     ? new Date(year, month - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
@@ -104,13 +104,14 @@ function DateGroup({ date, projects }) {
 
 function FeaturedItem({ project }) {
   const ref = useScrollReveal(0.1);
+  const [loading, setLoading] = useState(Boolean(project.video));
   // Picture opens the live demo, or the first link (GitHub) when there's no demo.
   const target = project.links.find((l) => l.label === 'Live demo') ?? project.links[0];
-  // Videos loop muted with no controls, so they can't be paused. The screenshot shows while it loads.
+  // Videos loop muted with no controls, so they can't be paused. A spinner shows while it loads.
   const img = project.video ? (
     <video
       src={project.video}
-      poster={project.image}
+      onLoadedData={() => setLoading(false)}
       autoPlay
       muted
       loop
@@ -126,7 +127,7 @@ function FeaturedItem({ project }) {
     <article className="featured-item reveal" ref={ref}>
       {target ? (
         <a
-          className="featured-frame"
+          className={`featured-frame ${loading ? 'is-loading' : ''}`}
           href={target.url}
           target="_blank"
           rel="noopener noreferrer"
@@ -136,7 +137,7 @@ function FeaturedItem({ project }) {
           <span className="featured-frame-cta" aria-hidden="true">Open {target.label} ↗</span>
         </a>
       ) : (
-        <div className="featured-frame">{img}</div>
+        <div className={`featured-frame ${loading ? 'is-loading' : ''}`}>{img}</div>
       )}
       <div className="featured-meta">
         <ProjectHeading project={project} />

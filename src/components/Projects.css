@@ -126,6 +126,42 @@
   border-color: var(--color-border-hover);
 }
 
+/* Loading screen: spinner over a soft sweep until the video's first frame is ready */
+.featured-frame.is-loading {
+  background: linear-gradient(100deg, var(--color-surface) 30%, var(--color-surface-hover) 50%, var(--color-surface) 70%)
+    0 0 / 300% 100%;
+  animation: frame-sweep 1.6s linear infinite;
+}
+
+.featured-frame.is-loading video {
+  opacity: 0;
+}
+
+.featured-frame video {
+  transition: opacity var(--motion-fast), transform var(--motion-duration) var(--motion-ease);
+}
+
+.featured-frame.is-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-text);
+  animation: frame-spin 0.8s linear infinite;
+}
+
+@keyframes frame-sweep {
+  to { background-position: -300% 0; }
+}
+
+@keyframes frame-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* Clicks pass through to the link, so the right-click menu can't pause it */
 .featured-frame video {
   pointer-events: none;
