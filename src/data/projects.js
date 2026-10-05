@@ -36,10 +36,9 @@ export const PROJECTS = [
   },
   {
     id: 'beenoise',
-    date: '2026-09',
+    date: '2026-10',
     title: 'BeeNoise',
-    period: 'Sep 2026 — Present',
-    status: 'In progress',
+    period: 'Sep — Oct 2026',
     image: '/projects/beenoise.jpg',
     video: '/projects/beenoise.mp4',
     note: 'Speech Recognition coursework',
