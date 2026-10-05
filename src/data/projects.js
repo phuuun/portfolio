@@ -40,6 +40,8 @@ export const PROJECTS = [
     title: 'BeeNoise',
     period: 'Sep 2026 — Present',
     status: 'In progress',
+    image: '/projects/beenoise.jpg',
+    video: '/projects/beenoise.mp4',
     note: 'Speech Recognition coursework',
     categories: ['AI & ML'],
     description:
