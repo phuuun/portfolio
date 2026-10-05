@@ -5,10 +5,11 @@ export const CATEGORIES = ['All', 'AI & ML', 'Web', 'Games', 'Mobile', 'Hardware
 export const PROJECTS = [
   {
     id: 'fotoin',
-    date: '2026-10',
+    date: '2026-09',
     title: 'FOTOIN',
     video: '/projects/fotoin.mp4',
-    period: 'Sep — Oct 2026',
+    period: 'Sep 2026 — Present',
+    status: 'In progress',
     note: 'Venture Creation coursework',
     categories: ['AI & ML', 'Web'],
     description:
