@@ -4,6 +4,20 @@ export const CATEGORIES = ['All', 'AI & ML', 'Web', 'Games', 'Mobile', 'Hardware
 
 export const PROJECTS = [
   {
+    id: 'fotoin',
+    date: '2026-10',
+    title: 'FOTOIN',
+    image: '/projects/fotoin.jpg',
+    video: '/projects/fotoin.mp4',
+    period: 'Sep — Oct 2026',
+    note: 'Venture Creation coursework',
+    categories: ['AI & ML', 'Web'],
+    description:
+      'Product photos for Indonesian small sellers, straight from their phone. Send a plain snapshot and get back styled shots sized exactly for Shopee, Tokopedia, TikTok Shop and Instagram — AI does the styling, a human reviewer checks every photo before it goes out, and results arrive on WhatsApp.',
+    tags: ['React', 'Express', 'Gemini API', 'Image Processing'],
+    links: [{ label: 'GitHub', url: 'https://github.com/gretil3/fotoin' }],
+  },
+  {
     id: 'owi',
     date: '2026-09',
     title: 'OWI',
