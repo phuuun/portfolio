@@ -13,8 +13,8 @@ export const PROJECTS = [
     note: 'Venture Creation coursework',
     categories: ['AI & ML', 'Web'],
     description:
-      'Product photos for Indonesian small sellers, straight from their phone. Send a plain snapshot and get back styled shots sized exactly for Shopee, Tokopedia, TikTok Shop and Instagram, with a human reviewer checking every photo before it goes out over WhatsApp. It\'s a pilot. The whole order flow works end to end, from upload and QRIS payment to the review queue and delivery messages. But image generation and payment are still stand-ins, and WhatsApp sending is off by default. I redesigned the web app (home page, order flow, a how-it-works page), and I\'m taking on the backend next, starting with hooking up a paid image-generation API.',
-    tags: ['React', 'Express', 'Gemini API', 'Image Processing'],
+      'Product photos for Indonesian small sellers, straight from their phone. Send a plain snapshot and get back studio-style shots sized exactly for Shopee, Tokopedia, TikTok Shop and Instagram, with a human reviewer checking every photo before it goes out. It\'s a pilot, and the whole order flow works end to end, from upload and payment to the review queue and delivery. I built the image side to run locally with no paid AI: a Python pipeline cuts the product out and corrects its colour, and the server places it on a lit studio backdrop with a soft contact shadow. The product\'s own pixels are never regenerated, so labels stay readable. The top pack adds a duo shot, a second blurred copy behind the product for depth of field, laid out differently every time. I also redesigned the web app (home page, order flow, a how-it-works page). Payment is still a stand-in, and WhatsApp delivery waits until after the pilot.',
+    tags: ['React', 'Express', 'Python', 'Image Processing'],
     links: [{ label: 'GitHub', url: 'https://github.com/gretil3/fotoin' }],
   },
   {
