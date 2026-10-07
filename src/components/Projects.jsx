@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { CATEGORIES, PROJECTS } from '../data/projects.js';
 import './Projects.css';
@@ -141,7 +141,7 @@ function FeaturedItem({ project }) {
       )}
       <div className="featured-meta">
         <ProjectHeading project={project} />
-        <p className="project-description">{project.description}</p>
+        <Description text={project.description} />
         <Tags tags={project.tags} />
         <Links project={project} />
       </div>
@@ -155,12 +155,47 @@ function ProjectCard({ project }) {
   return (
     <article className="project-card reveal" ref={ref}>
       <ProjectHeading project={project} />
-      <p className="project-description">{project.description}</p>
+      <Description text={project.description} />
       <div className="project-card-footer">
         <Tags tags={project.tags} />
         <Links project={project} />
       </div>
     </article>
+  );
+}
+
+// Clamped to 3 lines; the toggle only appears when the text actually runs longer.
+function Description({ text }) {
+  const ref = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [overflows, setOverflows] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || open) return undefined;
+    const check = () => setOverflows(el.scrollHeight > el.clientHeight + 1);
+    check();
+    const observer = new ResizeObserver(check);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [open, text]);
+
+  return (
+    <div>
+      <p ref={ref} className={`project-description ${open ? '' : 'is-clamped'}`}>
+        {text}
+      </p>
+      {(overflows || open) && (
+        <button
+          type="button"
+          className="description-toggle"
+          aria-expanded={open}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? 'Show less' : 'Read more'}
+        </button>
+      )}
+    </div>
   );
 }
 
