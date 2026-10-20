@@ -18,6 +18,46 @@ export const PROJECTS = [
     links: [{ label: 'GitHub', url: 'https://github.com/gretil3/fotoin' }],
   },
   {
+    id: 'legato',
+    date: '2026-10',
+    title: 'Legato',
+    period: 'Oct 2026 — Present',
+    status: 'In progress',
+    categories: ['Mobile'],
+    description:
+      'A music and audiobook player for Android, for the files already on my phone. It has a full library (songs, albums, artists, playlists), a play queue, ReplayGain, and tag editing that writes into the files themselves, one at a time or in bulk. Audiobooks pick up where you left off, with chapters, a speed menu and a sleep timer. A built-in converter turns a YouTube video or playlist into tagged audio with its cover, and a playlist can become one audiobook with its chapters in order. I built it for myself and sideload it, and the converter is still being tested on the phone.',
+    tags: ['Kotlin', 'Jetpack Compose', 'Media3', 'Room'],
+    links: [{ label: 'GitHub', url: 'https://github.com/phuuun/Legato' }],
+  },
+  {
+    id: 'salahbro',
+    date: '2026-10',
+    title: 'Salahbro',
+    period: 'Oct 2026 — Present',
+    status: 'In progress',
+    categories: ['Games', 'Web'],
+    description:
+      'Balatro, the poker roguelike, rebuilt in one HTML file with a Windows 7 Solitaire look. Play poker hands to beat each blind\'s score across 8 antes, level hands up with planet cards, and spend your winnings in a shop of 77 jokers, tarot cards and card enhancements. There is no build step and no backend. Boss blinds, editions, seals, booster packs and saving aren\'t in yet, and it\'s a personal project, so there\'s no public build.',
+    tags: ['JavaScript', 'HTML', 'CSS'],
+    links: [],
+  },
+  {
+    id: 'bullshiton',
+    date: '2026-10',
+    title: 'Inconvenient Controls',
+    period: 'Oct 2026',
+    note: 'Bullshiton submission',
+    categories: ['Web', 'Games'],
+    description:
+      'Three everyday controls, made deliberately worse. To join a wifi network you play Flappy Bird and die with each number of its IP as your score, in order, then type the password one letter per mate-in-one chess puzzle, and one wrong move wipes it. Brightness only goes up as fast as you type. The volume bar only rises while you hold space and scream into the mic.',
+    tags: ['JavaScript', 'Canvas', 'Web Audio API'],
+    links: [
+      { label: 'Wifi demo', url: 'https://inconvenient-wifi.vercel.app' },
+      { label: 'Brightness demo', url: 'https://inconvenient-brightness.vercel.app' },
+      { label: 'Volume demo', url: 'https://inconvenient-volume-bar.vercel.app' },
+    ],
+  },
+  {
     id: 'owi',
     date: '2026-09',
     title: 'OWI',
@@ -73,6 +113,18 @@ export const PROJECTS = [
       { label: 'Download', url: 'https://github.com/phuuun/Tsundoku/releases' },
       { label: 'GitHub', url: 'https://github.com/phuuun/Tsundoku' },
     ],
+  },
+  {
+    id: 'before',
+    date: '2026-09',
+    title: 'Before',
+    period: 'Sep 2026 — Present',
+    status: 'In progress',
+    categories: ['Mobile'],
+    description:
+      'A photo app for before-and-after pairs. Snap the BEFORE and it waits as a draft with a running timer and an optional reminder, then snap the AFTER and the pair posts to a full-screen feed where you drag to wipe from one photo to the other. It\'s a private app for our team of four, with Google sign-in, likes and comments. I moved it from a local prototype onto Firebase (sign-in, database, photo storage and security rules), and built GIF capture and the share export, which renders the reveal as a 9:16 video for Instagram or WhatsApp, frame by frame through the phone\'s video encoder.',
+    tags: ['Kotlin', 'Jetpack Compose', 'Firebase', 'CameraX'],
+    links: [],
   },
   {
     id: 'notredstone2d',
