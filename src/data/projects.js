@@ -116,7 +116,7 @@ export const PROJECTS = [
     title: 'SuperHoop',
     period: 'Sep 2026 — Present',
     status: 'In progress',
-    image: '/projects/superhoop.png',
+    image: '/projects/superhoop.webp',
     categories: ['Hardware'],
     description:
       'The Timezone basketball arcade machine, rebuilt small. A projector throws the scoreboard, timer and backboard onto the wall around a mini hoop, and an Arduino with an ultrasonic sensor will count the baskets. The projected game works, with a key press standing in for the sensor, but the Arduino isn\'t hooked up yet.',

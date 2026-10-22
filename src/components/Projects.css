@@ -127,15 +127,11 @@
   transition: transform var(--motion-duration) var(--motion-ease);
 }
 
-/* Loading screen: spinner over a soft sweep until the video's first frame is ready */
+/* Spinner over a soft sweep while a playing video buffers */
 .featured-frame.is-loading {
   background: linear-gradient(100deg, var(--color-surface) 30%, var(--color-surface-hover) 50%, var(--color-surface) 70%)
     0 0 / 300% 100%;
   animation: frame-sweep 1.6s linear infinite;
-}
-
-.featured-frame.is-loading video {
-  opacity: 0;
 }
 
 .featured-frame video {

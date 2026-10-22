@@ -66,7 +66,8 @@ export async function createParticleHero(canvas, { count, trigger }) {
   const shapes = await Promise.all(SHAPES.map((name) => makeShape(name, count)))
 
   const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: false })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  const coarse = window.matchMedia('(pointer: coarse)').matches
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, coarse ? 1.5 : 2))
   const scene = new Scene()
   const camera = new PerspectiveCamera(FOV, 1, 0.1, 100)
   camera.position.z = 1 / Math.tan((FOV / 2) * (Math.PI / 180)) // z=0 plane spans y in [-1, 1]
@@ -165,8 +166,10 @@ export async function createParticleHero(canvas, { count, trigger }) {
     inside = false
     target.set(0, 0)
   }
-  window.addEventListener('pointermove', onMove)
-  document.documentElement.addEventListener('pointerleave', onLeave)
+  if (!coarse) {
+    window.addEventListener('pointermove', onMove)
+    document.documentElement.addEventListener('pointerleave', onLeave)
+  }
 
   const v = new Vector3()
   let last = 0

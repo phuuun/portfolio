@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
+import { useInViewVideo } from '../hooks/useInViewVideo';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useSplitReveal } from '../hooks/useSplitReveal';
 import { CATEGORIES, PROJECTS } from '../data/projects.js';
@@ -106,16 +107,20 @@ function DateGroup({ date, projects }) {
 
 function FeaturedItem({ project }) {
   const ref = useScrollReveal(0.1);
-  const [loading, setLoading] = useState(Boolean(project.video));
+  const [loading, setLoading] = useState(false);
+  const videoRef = useInViewVideo();
   const dialogRef = useRef(null);
   // Picture opens the live demo, or the first link (GitHub) when there's no demo.
   const target = project.links.find((l) => l.label === 'Live demo') ?? project.links[0];
-  // Videos loop muted with no controls, so they can't be paused. A spinner shows while it loads.
+  // Videos loop muted with no controls, so they can't be paused. The poster shows first; a spinner shows only while a playing video is buffering.
   const img = project.video ? (
     <video
+      ref={videoRef}
       src={project.video}
-      onLoadedData={() => setLoading(false)}
-      autoPlay
+      poster={project.video.replace('.mp4', '.jpg')}
+      preload="none"
+      onWaiting={() => setLoading(true)}
+      onPlaying={() => setLoading(false)}
       muted
       loop
       playsInline

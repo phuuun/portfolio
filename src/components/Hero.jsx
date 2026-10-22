@@ -1,5 +1,6 @@
 import { createRef, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useInViewVideo } from '../hooks/useInViewVideo';
 import { useSplitReveal } from '../hooks/useSplitReveal';
 import { gsap, lenis, reducedMotion, ScrollTrigger, SplitText } from '../lib/motion';
 import { PROJECTS } from '../data/projects.js';
@@ -102,12 +103,15 @@ function Heading() {
 
 // Desktop: the section pins and each scroll step swaps in the next project.
 function Showcase() {
+  const rootRef = useRef(null);
   const pinRef = useRef(null);
   const stRef = useRef(null);
   const frameRef = useRef(null);
   const textRefs = useRef([]);
   const dialogRefs = useRef(RECENT.map(() => createRef())).current;
   const [active, setActive] = useState(0);
+  // The first video waits until the section is near the viewport instead of loading under the hero.
+  const [near, setNear] = useState(false);
   const steps = RECENT.length - 1;
 
   // Layout effect, so the pin spacer is unwrapped before React removes the node.
@@ -146,12 +150,18 @@ function Showcase() {
   }, [dialogRefs]);
 
   useEffect(() => {
+    const io = new IntersectionObserver(([e]) => setNear(e.isIntersecting), { rootMargin: '200px' });
+    io.observe(rootRef.current);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
     [...frameRef.current.children].forEach((m, i) => {
       if (m.tagName !== 'VIDEO') return;
-      if (i === active) m.play().catch(() => {});
+      if (near && i === active) m.play().catch(() => {});
       else m.pause();
     });
-  }, [active]);
+  }, [active, near]);
 
   // The entering text block's lines slide up from a mask
   useLayoutEffect(() => {
@@ -188,7 +198,7 @@ function Showcase() {
   };
 
   return (
-    <div>
+    <div ref={rootRef}>
       <div className="rw-pin" ref={pinRef}>
         <div className="rw-container rw-layout">
           <header className="rw-head">
@@ -276,32 +286,17 @@ function Card({ project }) {
   );
 }
 
-// Plays the video while at least 25% of it is visible. Under reduced motion it never autoplays.
-function useInViewVideo() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const video = ref.current;
-    if (!video || reducedMotion) return undefined;
-    const observer = new IntersectionObserver(
-      ([entry]) => (entry.intersectionRatio >= 0.25 ? video.play().catch(() => {}) : video.pause()),
-      { threshold: [0, 0.25] },
-    );
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
-
 function Media({ project, className, hidden, videoRef }) {
   return project.video ? (
     <video
       ref={videoRef}
       className={className}
       src={project.video}
+      poster={project.video.replace('.mp4', '.jpg')}
       muted
       loop
       playsInline
-      preload="metadata"
+      preload={videoRef ? 'none' : 'metadata'}
       disablePictureInPicture
       aria-hidden={hidden || undefined}
       aria-label={`Video of ${project.title}`}

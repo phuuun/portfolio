@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const count = window.matchMedia('(pointer: coarse), (max-width: 767px)').matches ? 3000 : 8000;
+const count = window.matchMedia('(pointer: coarse), (max-width: 767px)').matches ? 2000 : 8000;
 
 export default function HeroCanvas() {
   const ref = useRef(null);
