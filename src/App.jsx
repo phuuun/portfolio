@@ -20,7 +20,7 @@ export default function App() {
   const Page = page.component;
 
   return (
-    <div className="app-wrapper" data-page={page.name}>
+    <div className={`app-wrapper${page.name === 'contact' ? ' is-inverted' : ''}`} data-page={page.name}>
       <Nav route={route} />
 
       <main id="main-content" className="main-content">

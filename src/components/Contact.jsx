@@ -38,15 +38,7 @@ export default function Contact() {
             className="contact-email-link"
             aria-label="Send email to fikovanhouten2006@gmail.com"
           >
-            <svg
-              className="contact-email-icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <rect x="2" y="4" width="20" height="16" rx="3" />
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-            </svg>
-            <span>fikovanhouten2006@gmail.com</span>
+            fikovanhouten2006@gmail.com
           </a>
         </div>
 
@@ -61,14 +53,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 aria-label={`${link.name} profile (${link.label})`}
               >
-                <span>{link.name}</span>
-                <svg
-                  className="contact-arrow-icon"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M7 17 17 7M7 7h10v10" />
-                </svg>
+                {link.name} <span className="contact-arrow" aria-hidden="true">↗</span>
               </a>
             </li>
           ))}

@@ -15,6 +15,7 @@ export function useSplitReveal() {
     const split = SplitText.create(el, {
       type: 'lines',
       mask: 'lines',
+      linesClass: 'split-line', // masks get 'split-line-mask' (see index.css)
       autoSplit: true,
       onSplit: (self) =>
         gsap.from(self.lines, {

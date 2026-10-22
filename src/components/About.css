@@ -10,12 +10,12 @@
 }
 
 .about-title {
-  font-size: var(--text-h1);
+  font-size: var(--text-display);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-hero);
-  line-height: var(--leading-tight);
-  max-width: 720px;
-  margin-bottom: var(--space-xl);
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  margin-left: -0.05em;
+  margin-bottom: var(--space-2xl);
 }
 
 .about-content {
@@ -39,24 +39,29 @@
 .skills {
   margin-top: var(--space-3xl);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-md);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--color-border);
 }
 
+/* Four columns with a 1px rule between them */
 .skill-group {
-  padding: var(--space-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-surface);
-  background: linear-gradient(180deg, var(--color-surface-elevated), var(--color-surface));
+  padding: var(--space-md) var(--space-md) 0;
+}
+
+.skill-group + .skill-group {
+  border-left: 1px solid var(--color-border);
+}
+
+.skill-group:first-child {
+  padding-left: 0;
 }
 
 .skill-title {
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-body-lg);
   font-weight: var(--weight-regular);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
   margin-bottom: var(--space-sm);
 }
 
@@ -66,17 +71,21 @@
   flex-direction: column;
   gap: var(--space-2xs);
   font-size: var(--text-sub);
-  color: var(--color-text-secondary);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 767px) {
   .skills {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: minmax(0, 1fr);
+    border-top: 0;
   }
-}
 
-@media (max-width: 480px) {
-  .skills {
-    grid-template-columns: 1fr;
+  .skill-group,
+  .skill-group:first-child {
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .skill-group + .skill-group {
+    border-left: 0;
   }
 }

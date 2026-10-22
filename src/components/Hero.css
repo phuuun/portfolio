@@ -60,13 +60,6 @@
   margin-bottom: var(--space-xl);
 }
 
-/* SplitText's line masks clip at the tight line box; give descenders room */
-.hero-headline > div,
-.sw-heading > div {
-  padding-block: 0.12em;
-  margin-block: -0.12em;
-}
-
 .hero-meta {
   display: grid;
   grid-template-columns: minmax(0, 23rem) auto 1fr;

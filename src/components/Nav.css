@@ -22,9 +22,10 @@
 }
 
 .nav-brand {
-  font-family: var(--font-serif);
-  font-size: var(--text-sub);
-  letter-spacing: var(--tracking-tight);
+  font-family: var(--font-family);
+  font-size: 1.125rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.02em;
   color: #fff;
   transition: opacity var(--motion-fast);
 }

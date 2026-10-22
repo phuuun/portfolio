@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="footer" role="contentinfo">
       <div className="footer-container">
         <p className="footer-text">
-          &copy; {currentYear} Fiko Alexie van Houten. All rights reserved.
+          &copy; {currentYear} Fiko Alexie van Houten
         </p>
 
         <div className="footer-meta">
