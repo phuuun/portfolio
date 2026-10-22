@@ -1,5 +1,6 @@
 // Grouped by `date` on /work, newest first: the start month for WIP projects (`status`), the
 // finish month for finished ones. Projects with a `video` or `image` get a large frame.
+// `parts` (instead of links) is for a project made of several apps; see PartsDialog.
 export const CATEGORIES = ['All', 'AI & ML', 'Web', 'Games', 'Mobile', 'Hardware', 'Research'];
 
 export const PROJECTS = [
@@ -21,11 +22,11 @@ export const PROJECTS = [
     id: 'legato',
     date: '2026-10',
     title: 'Legato',
-    period: 'Oct 2026 — Present',
-    status: 'In progress',
+    video: '/projects/legato.mp4',
+    period: 'Oct 2026',
     categories: ['Mobile'],
     description:
-      'A music and audiobook player for Android, for the files already on my phone. It has a full library (songs, albums, artists, playlists), a play queue, ReplayGain, and tag editing that writes into the files themselves, one at a time or in bulk. Audiobooks pick up where you left off, with chapters, a speed menu and a sleep timer. A built-in converter turns a YouTube video or playlist into tagged audio with its cover, and a playlist can become one audiobook with its chapters in order. I built it for myself and sideload it, and the converter is still being tested on the phone.',
+      'A music and audiobook player for Android, for the files already on my phone. It has a full library (songs, albums, artists, playlists), a play queue, ReplayGain, and tag editing that writes into the files themselves, one at a time or in bulk. Audiobooks pick up where you left off, with chapters, a speed menu and a sleep timer. A built-in converter turns a YouTube video or playlist into tagged audio with its cover, and a playlist can become one audiobook with its chapters in order. I built it for myself and sideload it.',
     tags: ['Kotlin', 'Jetpack Compose', 'Media3', 'Room'],
     links: [{ label: 'GitHub', url: 'https://github.com/phuuun/Legato' }],
   },
@@ -45,16 +46,34 @@ export const PROJECTS = [
     id: 'bullshiton',
     date: '2026-10',
     title: 'Inconvenient Controls',
+    video: '/projects/inconvenient.mp4',
     period: 'Oct 2026',
     note: 'Bullshiton submission',
     categories: ['Web', 'Games'],
     description:
-      'Three everyday controls, made deliberately worse. To join a wifi network you play Flappy Bird and die with each number of its IP as your score, in order, then type the password one letter per mate-in-one chess puzzle, and one wrong move wipes it. Brightness only goes up as fast as you type. The volume bar only rises while you hold space and scream into the mic.',
+      'Made with a friend for Bullshiton, a hackathon run backwards: instead of solving a problem, you take something that already works and make it as complicated and painful as you can. We picked three everyday controls. To join a wifi network you play Flappy Bird and die with each number of its IP as your score, in order, then type the password one letter per mate-in-one chess puzzle, and one wrong move wipes it. Brightness only goes up as fast as you type. The volume bar only rises while you hold space and scream into the mic.',
     tags: ['JavaScript', 'Canvas', 'Web Audio API'],
-    links: [
-      { label: 'Wifi demo', url: 'https://inconvenient-wifi.vercel.app' },
-      { label: 'Brightness demo', url: 'https://inconvenient-brightness.vercel.app' },
-      { label: 'Volume demo', url: 'https://inconvenient-volume-bar.vercel.app' },
+    links: [],
+    // Three separate apps, so the frame opens a window listing each one's demo and code.
+    parts: [
+      {
+        name: 'Wifi',
+        blurb: 'Flappy Bird for the IP, chess puzzles for the password.',
+        demo: 'https://inconvenient-wifi.vercel.app',
+        github: 'https://github.com/phuuun/Inconvenient-Wifi',
+      },
+      {
+        name: 'Brightness',
+        blurb: 'Only goes up as fast as you type.',
+        demo: 'https://inconvenient-brightness.vercel.app',
+        github: 'https://github.com/phuuun/Inconvenient-Brightness',
+      },
+      {
+        name: 'Volume bar',
+        blurb: 'Hold space and scream to turn it up.',
+        demo: 'https://inconvenient-volume-bar.vercel.app',
+        github: 'https://github.com/phuuun/Inconvenient-Volume-Bar',
+      },
     ],
   },
   {

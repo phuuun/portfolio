@@ -105,6 +105,7 @@ function DateGroup({ date, projects }) {
 function FeaturedItem({ project }) {
   const ref = useScrollReveal(0.1);
   const [loading, setLoading] = useState(Boolean(project.video));
+  const dialogRef = useRef(null);
   // Picture opens the live demo, or the first link (GitHub) when there's no demo.
   const target = project.links.find((l) => l.label === 'Live demo') ?? project.links[0];
   // Videos loop muted with no controls, so they can't be paused. A spinner shows while it loads.
@@ -125,7 +126,21 @@ function FeaturedItem({ project }) {
 
   return (
     <article className="featured-item reveal" ref={ref}>
-      {target ? (
+      {project.parts ? (
+        <>
+          <button
+            type="button"
+            className={`featured-frame ${loading ? 'is-loading' : ''}`}
+            onClick={() => dialogRef.current.showModal()}
+            aria-haspopup="dialog"
+            aria-label={`See the demos and code for ${project.title}`}
+          >
+            {img}
+            <span className="featured-frame-cta" aria-hidden="true">See all {project.parts.length} ↗</span>
+          </button>
+          <PartsDialog ref={dialogRef} project={project} />
+        </>
+      ) : target ? (
         <a
           className={`featured-frame ${loading ? 'is-loading' : ''}`}
           href={target.url}
@@ -146,6 +161,53 @@ function FeaturedItem({ project }) {
         <Links project={project} />
       </div>
     </article>
+  );
+}
+
+// Native <dialog>: showModal() gives focus trapping and Esc for free, and ::backdrop blurs the page.
+// A click on the backdrop lands on the <dialog> itself, so that closes it too.
+function PartsDialog({ ref, project }) {
+  return (
+    <dialog
+      ref={ref}
+      className="parts-dialog"
+      aria-labelledby={`${project.id}-dialog-title`}
+      onClick={(e) => e.target === e.currentTarget && e.currentTarget.close()}
+    >
+      <div className="parts-dialog-body">
+        <div className="parts-dialog-header">
+          <h3 id={`${project.id}-dialog-title`} className="parts-dialog-title">{project.title}</h3>
+          <button
+            type="button"
+            className="parts-dialog-close"
+            aria-label="Close"
+            onClick={() => ref.current.close()}
+          >
+            ×
+          </button>
+        </div>
+        <ul className="parts-list">
+          {project.parts.map((part) => (
+            <li key={part.name} className="parts-item">
+              <div>
+                <p className="parts-name">{part.name}</p>
+                <p className="parts-blurb">{part.blurb}</p>
+              </div>
+              <div className="parts-links">
+                <a href={part.demo} target="_blank" rel="noopener noreferrer"
+                  aria-label={`${part.name} demo (opens in a new tab)`}>
+                  Demo <span aria-hidden="true">↗</span>
+                </a>
+                <a href={part.github} target="_blank" rel="noopener noreferrer"
+                  aria-label={`${part.name} on GitHub (opens in a new tab)`}>
+                  GitHub <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </dialog>
   );
 }
 
@@ -226,11 +288,11 @@ function Links({ project }) {
   if (project.links.length === 0) return null;
   return (
     <div className="project-links">
-      {project.links.map((l, i) => (
+      {project.links.map((l) => (
         <a
           key={l.url}
           href={l.url}
-          className={`project-link ${i === 0 ? '' : 'is-secondary'}`}
+          className="project-link"
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${l.label} for ${project.title} (opens in a new tab)`}

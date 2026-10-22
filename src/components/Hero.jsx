@@ -3,7 +3,7 @@ import { PROJECTS } from '../data/projects.js';
 import './Hero.css';
 
 const current = PROJECTS.filter((p) => p.status);
-const liveDemos = PROJECTS.filter((p) => p.links.some((l) => /demo/i.test(l.label))).length;
+const liveDemos = PROJECTS.filter((p) => p.parts || p.links.some((l) => /demo/i.test(l.label))).length;
 
 export default function Hero() {
   const revealRef = useScrollReveal();
