@@ -156,7 +156,8 @@ export async function createParticleHero(canvas, { count, trigger }) {
   const onMove = (e) => {
     if (e.pointerType === 'touch') return
     const r = canvas.getBoundingClientRect()
-    target.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1)
+    const cl = (n) => Math.max(-1, Math.min(1, n))
+    target.set(cl(((e.clientX - r.left) / r.width) * 2 - 1), cl(-((e.clientY - r.top) / r.height) * 2 + 1))
     if (!inside) ndc.copy(target) // don't sweep in from the last exit point
     inside = true
   }

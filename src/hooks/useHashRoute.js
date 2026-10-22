@@ -14,7 +14,9 @@ export function useHashRoute() {
     const onHashChange = () => {
       const next = normalize(window.location.hash);
       if (document.startViewTransition && !reducedMotion) {
-        document.startViewTransition(() => flushSync(() => setRoute(next)));
+        document
+          .startViewTransition(() => flushSync(() => setRoute(next)))
+          .ready.catch(() => {});
       } else {
         setRoute(next);
       }

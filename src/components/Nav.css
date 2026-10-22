@@ -1,5 +1,9 @@
 /* Navigation Component Styles */
 
+.nav-header :focus-visible {
+  outline-color: #fff; /* under difference, white inverts the backdrop: visible on light and dark */
+}
+
 .nav-header {
   position: sticky;
   top: 0;

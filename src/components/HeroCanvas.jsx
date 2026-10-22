@@ -22,7 +22,8 @@ export default function HeroCanvas() {
         }
         instance?.destroy();
         return null;
-      });
+      })
+      .catch(() => null);
 
     return () => {
       cancelled = true;

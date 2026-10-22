@@ -19,7 +19,7 @@ export function useSplitReveal() {
       autoSplit: true,
       onSplit: (self) =>
         gsap.from(self.lines, {
-          yPercent: 100,
+          yPercent: 120,
           duration: 0.9,
           ease: 'expo.out',
           stagger: 0.08,

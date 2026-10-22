@@ -15,7 +15,7 @@
   --color-border-hover: rgba(0, 0, 0, 0.2);
   --color-nav-bg: rgba(245, 245, 243, 0.8);
   
-  /* Exactly one restrained accent color, used sparingly — links & one CTA */
+  /* Single near-black accent (ink), used sparingly for focus rings and emphasis */
   --color-accent: #111111;
   --color-accent-hover: #444444;
   --color-accent-muted: rgba(0, 0, 0, 0.08);
