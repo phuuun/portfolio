@@ -1,4 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useSplitReveal } from '../hooks/useSplitReveal';
 import './About.css';
 
 const SKILLS = [
@@ -10,16 +11,17 @@ const SKILLS = [
 
 export default function About() {
   const revealRef = useScrollReveal();
+  const titleRef = useSplitReveal();
   const skillsRef = useScrollReveal();
 
   return (
     <section id="about" className="about-section" aria-label="About Me">
       <div className="about-container">
-        <div className="reveal" ref={revealRef}>
+        <div>
           <p className="eyebrow">About</p>
-          <h1 className="about-title">Picking the stack that fits the problem.</h1>
+          <h1 className="about-title" ref={titleRef}>Picking the stack that fits the problem.</h1>
 
-          <div className="about-content">
+          <div className="about-content reveal" ref={revealRef}>
             <p className="about-lead">
               I'm a Computer Science student minoring in AI, building things across machine learning,
               the web, games and hardware. Trust me, anything you give me, I'll handle.

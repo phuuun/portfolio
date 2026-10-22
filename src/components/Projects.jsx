@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useSplitReveal } from '../hooks/useSplitReveal';
 import { CATEGORIES, PROJECTS } from '../data/projects.js';
 import './Projects.css';
 
@@ -7,6 +8,7 @@ const TABS = ['Finished', 'WIP'];
 
 export default function Projects() {
   const headerRef = useScrollReveal();
+  const titleRef = useSplitReveal();
   const [tab, setTab] = useState('Finished');
   const [filter, setFilter] = useState('All');
   const inTab = PROJECTS.filter((p) => !p.status === (tab === 'Finished'));
@@ -21,10 +23,10 @@ export default function Projects() {
   return (
     <section id="work" className="work-section" aria-label="Work">
       <div className="work-container">
-        <header className="work-header reveal" ref={headerRef}>
+        <header className="work-header">
           <p className="eyebrow">Work</p>
-          <h1 className="work-title">Everything I've built.</h1>
-          <p className="work-intro">
+          <h1 className="work-title" ref={titleRef}>Everything I've built.</h1>
+          <p className="work-intro reveal" ref={headerRef}>
             {PROJECTS.length} projects across machine learning, the web, games, hardware and
             research. Newest first.
           </p>

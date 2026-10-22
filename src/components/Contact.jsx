@@ -1,4 +1,5 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useSplitReveal } from '../hooks/useSplitReveal';
 import './Contact.css';
 
 const SOCIAL_LINKS = [
@@ -16,15 +17,17 @@ const SOCIAL_LINKS = [
 
 export default function Contact() {
   const revealRef = useScrollReveal();
+  const titleRef = useSplitReveal();
 
   return (
     <section id="contact" className="contact-section" aria-label="Contact Information">
-      <div className="contact-container reveal" ref={revealRef}>
+      <div className="contact-container">
         <div className="contact-header">
           <p className="eyebrow">Contact</p>
-          <h1 className="contact-section-title">Let's build something.</h1>
+          <h1 className="contact-section-title" ref={titleRef}>Let's build something.</h1>
         </div>
 
+        <div className="reveal" ref={revealRef}>
         <p className="contact-statement">
           Open to interesting projects and collaborations. Feel free to reach out.
         </p>
@@ -70,6 +73,7 @@ export default function Contact() {
             </li>
           ))}
         </ul>
+        </div>
       </div>
     </section>
   );
