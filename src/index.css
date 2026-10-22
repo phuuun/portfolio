@@ -4,28 +4,30 @@
 
 :root {
   /* Color Palette — Pure black canvas, near-black surfaces, soft white & muted grey */
-  --color-canvas: #000000;
-  --color-surface: #0a0a0a;
-  --color-surface-elevated: #111111;
-  --color-surface-hover: #161616;
-  --color-text: #f5f5f7;
-  --color-text-secondary: #86868b;
-  --color-text-tertiary: #515154;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.16);
-  --color-nav-bg: rgba(0, 0, 0, 0.8);
+  --color-canvas: #f5f5f3;
+  --color-surface: #ececea;
+  --color-surface-elevated: #ffffff;
+  --color-surface-hover: #e6e6e3;
+  --color-text: #111111;
+  --color-text-secondary: #6b6b6b;
+  --color-text-tertiary: #9a9a9a;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-border-hover: rgba(0, 0, 0, 0.2);
+  --color-nav-bg: rgba(245, 245, 243, 0.8);
   
   /* Exactly one restrained accent color, used sparingly — links & one CTA */
-  --color-accent: #2997ff;
-  --color-accent-hover: #52aaff;
-  --color-accent-muted: rgba(41, 151, 255, 0.15);
-  --color-accent-glow: rgba(41, 151, 255, 0.35);
-  --color-live: #30d158;
+  --color-accent: #111111;
+  --color-accent-hover: #444444;
+  --color-accent-muted: rgba(0, 0, 0, 0.08);
+  --color-accent-glow: rgba(0, 0, 0, 0.25);
+  --color-live: #1f9d55;
 
   /* Typography Scale */
-  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+  --font-family: "Geist Variable", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
 
+  --text-display: clamp(3.5rem, 10vw, 10rem);
   --text-hero: clamp(2.25rem, 5vw, 3.75rem);
   --text-h1: clamp(2rem, 4.5vw, 3rem);
   --text-h2: clamp(1.5rem, 3vw, 2.25rem);
@@ -93,7 +95,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -131,12 +133,27 @@ img, svg {
 
 /* Small uppercase label above section titles */
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: var(--tracking-caps);
-  text-transform: uppercase;
-  color: var(--color-accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
   margin-bottom: var(--space-sm);
+}
+
+.is-inverted {
+  --color-canvas: #0b0b0b;
+  --color-text: #f5f5f3;
+  --color-text-secondary: #9a9a9a;
+  --color-text-tertiary: #6b6b6b;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-hover: rgba(255, 255, 255, 0.24);
+  --color-surface: #141414;
+  --color-surface-elevated: #1a1a1a;
+  --color-surface-hover: #1f1f1f;
+  --color-accent: #f5f5f3;
+  --color-accent-hover: #ffffff;
+  background: var(--color-canvas);
+  color: var(--color-text);
 }
 
 ::selection {
