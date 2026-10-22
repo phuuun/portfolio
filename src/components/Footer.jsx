@@ -1,11 +1,8 @@
+import { scrollToTop } from '../lib/motion.js';
 import './Footer.css';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <footer className="footer" role="contentinfo">
@@ -23,7 +20,7 @@ export default function Footer() {
           <button
             type="button"
             className="footer-back-to-top"
-            onClick={scrollToTop}
+            onClick={() => scrollToTop()}
             aria-label="Scroll back to top of page"
           >
             Back to top &uarr;

@@ -1,9 +1,9 @@
 /* ==========================================================================
-   Apple-Style Minimalism Dark Portfolio — Design Tokens & Base Styles
+   Editorial Light Portfolio — Design Tokens & Base Styles
    ========================================================================== */
 
 :root {
-  /* Color Palette — Pure black canvas, near-black surfaces, soft white & muted grey */
+  /* Color Palette — Warm off-white canvas, light grey surfaces, near-black text & muted grey */
   --color-canvas: #f5f5f3;
   --color-surface: #ececea;
   --color-surface-elevated: #ffffff;
@@ -94,7 +94,6 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
   color-scheme: light;
 }
 
@@ -131,7 +130,7 @@ img, svg {
   max-width: 100%;
 }
 
-/* Small uppercase label above section titles */
+/* Small italic serif label above section titles */
 .eyebrow {
   font-family: var(--font-serif);
   font-style: italic;
@@ -192,4 +191,20 @@ img, svg {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Page wipe on route change (View Transitions) */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-wipe 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+}
+
+@keyframes page-wipe {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0); }
 }

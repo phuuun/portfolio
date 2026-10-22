@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { reducedMotion, scrollToTop, ScrollTrigger } from '../lib/motion.js';
 
 function normalize(hash) {
   const path = hash.replace(/^#/, '');
@@ -9,13 +11,21 @@ export function useHashRoute() {
   const [route, setRoute] = useState(() => normalize(window.location.hash));
 
   useEffect(() => {
-    const onHashChange = () => setRoute(normalize(window.location.hash));
+    const onHashChange = () => {
+      const next = normalize(window.location.hash);
+      if (document.startViewTransition && !reducedMotion) {
+        document.startViewTransition(() => flushSync(() => setRoute(next)));
+      } else {
+        setRoute(next);
+      }
+    };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    scrollToTop(true);
+    ScrollTrigger.refresh();
   }, [route]);
 
   return route;
