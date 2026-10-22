@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { createRef, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useSplitReveal } from '../hooks/useSplitReveal';
 import { gsap, lenis, reducedMotion, ScrollTrigger, SplitText } from '../lib/motion';
@@ -103,15 +103,16 @@ function Heading() {
 // Desktop: the section pins and each scroll step swaps in the next project.
 function Showcase() {
   const pinRef = useRef(null);
+  const stRef = useRef(null);
   const frameRef = useRef(null);
-  const textRef = useRef(null);
+  const textRefs = useRef([]);
+  const dialogRefs = useRef(RECENT.map(() => createRef())).current;
   const [active, setActive] = useState(0);
-  const project = RECENT[active];
+  const steps = RECENT.length - 1;
 
   // Layout effect, so the pin spacer is unwrapped before React removes the node.
   // The wrapper <div> stays React's, ScrollTrigger only ever touches what's inside it.
   useLayoutEffect(() => {
-    const steps = RECENT.length - 1;
     const st = ScrollTrigger.create({
       trigger: pinRef.current,
       pin: true,
@@ -128,8 +129,21 @@ function Showcase() {
       },
       onUpdate: (self) => setActive(Math.round(self.progress * steps)),
     });
+    stRef.current = st;
     return () => st.kill();
-  }, []);
+  }, [steps]);
+
+  // Scrolling is frozen while a parts dialog is open, so the step can't change underneath it.
+  // The cleanup restarts Lenis even if the showcase unmounts with the dialog still open.
+  useEffect(() => {
+    const dialogs = dialogRefs.map((r) => r.current).filter(Boolean);
+    const start = () => lenis?.start();
+    dialogs.forEach((d) => d.addEventListener('close', start));
+    return () => {
+      dialogs.forEach((d) => d.removeEventListener('close', start));
+      start();
+    };
+  }, [dialogRefs]);
 
   useEffect(() => {
     [...frameRef.current.children].forEach((m, i) => {
@@ -139,9 +153,9 @@ function Showcase() {
     });
   }, [active]);
 
-  // The text block is keyed by index, so each step mounts fresh nodes to split and slide in
+  // The entering text block's lines slide up from a mask
   useLayoutEffect(() => {
-    const el = textRef.current;
+    const el = textRefs.current[active];
     const split = SplitText.create(el.querySelectorAll('.rw-title, .rw-tagline'), {
       type: 'lines',
       mask: 'lines',
@@ -155,10 +169,23 @@ function Showcase() {
       onComplete: () => split.revert(),
     });
     return () => {
-      tween.kill();
+      tween.revert();
       split.revert();
     };
   }, [active]);
+
+  // Tabbing to a hidden block's CTA scrolls to that block's step, which shows it
+  const goTo = (i) => {
+    const st = stRef.current;
+    const y = st.start + (i * (st.end - st.start)) / steps;
+    if (lenis) lenis.scrollTo(y);
+    else window.scrollTo(0, y);
+  };
+
+  const openParts = (i) => {
+    lenis?.stop();
+    dialogRefs[i].current.showModal();
+  };
 
   return (
     <div>
@@ -178,15 +205,24 @@ function Showcase() {
               ))}
             </div>
 
-            <div className="rw-text" key={active} ref={textRef}>
-              <h3 className="rw-title">{project.title}</h3>
-              <p className="rw-tagline">{taglineOf(project)}</p>
-              <div className="rw-foot-mask">
-                <div className="rw-foot">
-                  <Tags tags={project.tags} />
-                  <Cta project={project} />
+            {/* All blocks stay mounted and in the tab order; only the active one is visible */}
+            <div className="rw-texts">
+              {RECENT.map((p, i) => (
+                <div
+                  key={p.id}
+                  className={`rw-text${i === active ? ' is-active' : ''}`}
+                  ref={(el) => (textRefs.current[i] = el)}
+                >
+                  <h3 className="rw-title">{p.title}</h3>
+                  <p className="rw-tagline">{taglineOf(p)}</p>
+                  <div className="rw-foot-mask">
+                    <div className="rw-foot">
+                      <Tags tags={p.tags} />
+                      <Cta project={p} onOpen={() => openParts(i)} onFocus={() => goTo(i)} />
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -200,6 +236,8 @@ function Showcase() {
           </div>
         </div>
       </div>
+
+      {RECENT.map((p, i) => p.parts && <PartsDialog key={p.id} ref={dialogRefs[i]} project={p} />)}
     </div>
   );
 }
@@ -223,6 +261,7 @@ function Cards() {
 
 function Card({ project }) {
   const videoRef = useInViewVideo();
+  const dialogRef = useRef(null);
   return (
     <article className="rw-card">
       <div className="rw-card-frame">
@@ -231,7 +270,8 @@ function Card({ project }) {
       <h3 className="rw-title">{project.title}</h3>
       <p className="rw-tagline">{taglineOf(project)}</p>
       <Tags tags={project.tags} />
-      <Cta project={project} />
+      <Cta project={project} onOpen={() => dialogRef.current.showModal()} />
+      {project.parts && <PartsDialog ref={dialogRef} project={project} />}
     </article>
   );
 }
@@ -277,9 +317,8 @@ function Media({ project, className, hidden, videoRef }) {
   );
 }
 
-// Several apps open the parts dialog; otherwise the live demo, else the first link
-function Cta({ project }) {
-  const dialogRef = useRef(null);
+// Several apps open the parts dialog (owned by the caller); otherwise the live demo, else the first link
+function Cta({ project, onOpen, onFocus }) {
   const label = (
     <>
       View project <span className="rw-cta-arrow" aria-hidden="true">↗</span>
@@ -288,18 +327,16 @@ function Cta({ project }) {
 
   if (project.parts) {
     return (
-      <>
-        <button
-          type="button"
-          className="rw-cta"
-          onClick={() => dialogRef.current.showModal()}
-          aria-haspopup="dialog"
-          aria-label={`View project: the demos and code for ${project.title}`}
-        >
-          {label}
-        </button>
-        <PartsDialog ref={dialogRef} project={project} />
-      </>
+      <button
+        type="button"
+        className="rw-cta"
+        onClick={onOpen}
+        onFocus={onFocus}
+        aria-haspopup="dialog"
+        aria-label={`View project: the demos and code for ${project.title}`}
+      >
+        {label}
+      </button>
     );
   }
 
@@ -311,6 +348,7 @@ function Cta({ project }) {
       className="rw-cta"
       target="_blank"
       rel="noopener noreferrer"
+      onFocus={onFocus}
       aria-label={`View project: ${target.label} for ${project.title} (opens in a new tab)`}
     >
       {label}

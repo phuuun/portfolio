@@ -434,17 +434,27 @@ body:has(.parts-dialog[open]) {
   text-decoration-color: currentColor;
 }
 
+/* Each tag's "·" sits centred in the gap to its left; the first tag on every line has its dot
+   outside the box, where overflow clips it, so wrapped lines never start with a separator. */
 .project-tags {
   display: flex;
   flex-wrap: wrap;
+  column-gap: 1.1em;
+  overflow: hidden;
   list-style: none;
   font-size: var(--text-caption);
   color: var(--color-text-secondary);
 }
 
-.project-tag + .project-tag::before {
+.project-tag {
+  position: relative;
+}
+
+.project-tag::before {
   content: '·';
-  margin: 0 0.5em;
+  position: absolute;
+  right: calc(100% + 0.55em);
+  transform: translateX(50%);
 }
 
 .project-links {
