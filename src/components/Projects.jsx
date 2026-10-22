@@ -168,7 +168,7 @@ function FeaturedItem({ project }) {
 
 // Native <dialog>: showModal() gives focus trapping and Esc for free, and ::backdrop blurs the page.
 // A click on the backdrop lands on the <dialog> itself, so that closes it too.
-function PartsDialog({ ref, project }) {
+export function PartsDialog({ ref, project }) {
   return (
     <dialog
       ref={ref}
@@ -276,7 +276,7 @@ function ProjectHeading({ project }) {
   );
 }
 
-function Tags({ tags }) {
+export function Tags({ tags }) {
   return (
     <ul className="project-tags" aria-label="Technologies used">
       {tags.map((t) => (

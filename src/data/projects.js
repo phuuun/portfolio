@@ -1,6 +1,8 @@
 // Grouped by `date` on /work, newest first: the start month for WIP projects (`status`), the
 // finish month for finished ones. Projects with a `video` or `image` get a large frame.
 // `parts` (instead of links) is for a project made of several apps; see PartsDialog.
+// `tagline` (optional) is the one-liner in the home page's Recent work showcase; without it, the
+// showcase uses the first sentence of `description`.
 export const CATEGORIES = ['All', 'AI & ML', 'Web', 'Games', 'Mobile', 'Hardware', 'Research'];
 
 export const PROJECTS = [
@@ -22,6 +24,7 @@ export const PROJECTS = [
     id: 'legato',
     date: '2026-10',
     title: 'Legato',
+    tagline: 'A music and audiobook player for the files already on my phone.',
     video: '/projects/legato.mp4',
     period: 'Oct 2026',
     categories: ['Mobile'],
@@ -46,6 +49,7 @@ export const PROJECTS = [
     id: 'bullshiton',
     date: '2026-10',
     title: 'Inconvenient Controls',
+    tagline: 'Three everyday controls, made deliberately worse.',
     video: '/projects/inconvenient.mp4',
     period: 'Oct 2026',
     note: 'Bullshiton submission',
@@ -96,6 +100,7 @@ export const PROJECTS = [
     id: 'beenoise',
     date: '2026-10',
     title: 'BeeNoise',
+    tagline: 'Denoised audio and speaker-labelled subtitles from any noisy recording.',
     period: 'Sep — Oct 2026',
     video: '/projects/beenoise.mp4',
     note: 'Speech Recognition coursework',
@@ -122,6 +127,7 @@ export const PROJECTS = [
     id: 'tsundoku',
     date: '2026-09',
     title: 'Tsundoku',
+    tagline: 'A personal library for the books you own, have read, and still mean to.',
     video: '/projects/tsundoku.mp4',
     period: 'Sep 2026',
     categories: ['Mobile'],
