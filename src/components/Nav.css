@@ -6,10 +6,9 @@
   z-index: 1000;
   width: 100%;
   height: var(--nav-height);
-  background-color: var(--color-nav-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--color-border);
+  background: transparent;
+  mix-blend-mode: difference;
+  color: #fff; /* white is required for difference blending */
 }
 
 .nav-container {
@@ -23,10 +22,10 @@
 }
 
 .nav-brand {
-  font-size: var(--text-caption);
-  font-weight: var(--weight-medium);
+  font-family: var(--font-serif);
+  font-size: var(--text-sub);
   letter-spacing: var(--tracking-tight);
-  color: var(--color-text);
+  color: #fff;
   transition: opacity var(--motion-fast);
 }
 
@@ -44,17 +43,24 @@
 .nav-link {
   font-size: var(--text-caption);
   font-weight: var(--weight-regular);
-  color: var(--color-text-secondary);
+  color: #fff;
   letter-spacing: var(--tracking-normal);
-  transition: color var(--motion-fast);
+  text-underline-offset: 6px;
+  transition: opacity var(--motion-fast);
+}
+
+.nav-num {
+  opacity: 0.6;
+  margin-right: 0.25em;
 }
 
 .nav-link:hover {
-  color: var(--color-text);
+  opacity: 0.7;
 }
 
 .nav-link.is-active {
-  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
 /* Mobile Toggle */
@@ -64,12 +70,12 @@
   height: 32px;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-secondary);
-  transition: color var(--motion-fast);
+  color: #fff;
+  transition: opacity var(--motion-fast);
 }
 
 .nav-toggle:hover {
-  color: var(--color-text);
+  opacity: 0.7;
 }
 
 .nav-toggle-icon {
@@ -118,6 +124,7 @@
     display: block;
     position: fixed;
     top: var(--nav-height);
+    z-index: 999;
     left: 0;
     right: 0;
     background-color: var(--color-surface);

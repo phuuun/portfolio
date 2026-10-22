@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <div className="app-wrapper" data-page={page.name}>
-      <Nav />
+      <Nav route={route} />
 
       <main id="main-content" className="main-content">
         <Page />
