@@ -68,6 +68,8 @@ const draw = {
     c.stroke()
   },
   phone: (c) => {
+    // Leaned 12° left so it doesn't stand stiffly upright; the rotated corners stay inside 10..502px
+    c.translate(256, 256); c.rotate(-12 * Math.PI / 180); c.translate(-256, -256)
     c.strokeStyle = '#000'
     c.lineWidth = 14
     c.beginPath(); c.roundRect(146, 36, 220, 440, 40); c.stroke()
