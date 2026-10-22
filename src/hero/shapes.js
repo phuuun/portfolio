@@ -1,4 +1,4 @@
-export const SHAPES = Object.freeze(['net', 'controller', 'chip', 'fiko'])
+export const SHAPES = Object.freeze(['controller', 'net', 'browser', 'phone'])
 
 export function pointsFromMask(alpha, width, height, count, { depth = 0.15, rand = Math.random } = {}) {
   const filled = []
@@ -51,31 +51,37 @@ const draw = {
     circle(c, 312, 270, 14)
     c.globalCompositeOperation = 'source-over'
   },
-  chip: (c) => {
-    c.fillRect(96, 96, 320, 320)
-    c.globalCompositeOperation = 'destination-out'
-    c.fillRect(120, 120, 272, 272)
-    c.globalCompositeOperation = 'source-over'
-    c.fillRect(176, 176, 160, 160) // die
-    for (let i = 0; i < 8; i++) {
-      const o = 116 + i * 40
-      c.fillRect(o, 64, 16, 32); c.fillRect(o, 416, 16, 32)
-      c.fillRect(64, o, 32, 16); c.fillRect(416, o, 32, 16)
-    }
+  browser: (c) => {
+    c.strokeStyle = '#000'
+    c.lineWidth = 14
+    c.beginPath(); c.roundRect(40, 80, 432, 352, 24); c.stroke()
+    c.fillRect(40, 136, 432, 10) // title bar
+    ;[82, 116, 150].forEach((x) => circle(c, x, 108, 11))
+    // </> in strokes, centered in the content area
+    c.lineWidth = 24
+    c.lineCap = 'round'
+    c.lineJoin = 'round'
+    c.beginPath()
+    c.moveTo(196, 232); c.lineTo(144, 290); c.lineTo(196, 348)
+    c.moveTo(280, 222); c.lineTo(232, 358)
+    c.moveTo(316, 232); c.lineTo(368, 290); c.lineTo(316, 348)
+    c.stroke()
   },
-  fiko: (c) => {
-    c.font = '700 260px "Geist Variable"'
-    c.textAlign = 'center'
-    c.textBaseline = 'middle'
-    c.fillText('FIKO', 256, 128)
+  phone: (c) => {
+    c.strokeStyle = '#000'
+    c.lineWidth = 14
+    c.beginPath(); c.roundRect(146, 36, 220, 440, 40); c.stroke()
+    circle(c, 256, 72, 11) // punch-hole camera
+    roundRect(c, 211, 444, 90, 11, 5.5) // home indicator
+    for (let row = 0; row < 4; row++)
+      for (let col = 0; col < 3; col++) roundRect(c, 166 + col * 68, 112 + row * 72, 44, 44, 10)
   },
 }
 
 export async function makeShape(name, count) {
-  if (!draw[name]) throw new Error(`unknown shape: ${name}`)
-  if (name === 'fiko') await document.fonts.load('700 200px "Geist Variable"')
+  if (!Object.hasOwn(draw, name)) throw new Error(`unknown shape: ${name}`)
   const w = 512
-  const h = name === 'fiko' ? 256 : 512
+  const h = 512
   const canvas = document.createElement('canvas')
   canvas.width = w
   canvas.height = h

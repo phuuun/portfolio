@@ -3,6 +3,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useSplitReveal } from '../hooks/useSplitReveal';
 import { gsap, reducedMotion } from '../lib/motion';
 import { PROJECTS } from '../data/projects.js';
+import HeroCanvas from './HeroCanvas.jsx';
 import './Hero.css';
 
 const current = PROJECTS.filter((p) => p.status);
@@ -18,7 +19,9 @@ export default function Hero() {
   return (
     <>
       <section id="hero" className="hero-section" aria-label="Introduction">
-        <div className="hero-canvas-slot" />
+        <div className="hero-canvas-slot">
+          <HeroCanvas />
+        </div>
 
         <div className="hero-content">
           <p className="hero-role">Computer Science · AI</p>

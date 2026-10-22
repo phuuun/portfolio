@@ -9,11 +9,25 @@
   padding: calc(var(--nav-height) + var(--space-md)) var(--space-md) var(--space-lg);
 }
 
-/* Task 7 mounts the particle canvas here */
+/* Particle canvas behind the type; fades in once three.js has loaded */
 .hero-canvas-slot {
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
+}
+
+.hero-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--color-text); /* read by the shader as the dot color */
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+
+.hero-canvas.is-ready {
+  opacity: 1;
 }
 
 .hero-content {
