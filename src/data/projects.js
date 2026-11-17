@@ -34,6 +34,19 @@ export const PROJECTS = [
     links: [{ label: 'GitHub', url: 'https://github.com/phuuun/Legato' }],
   },
   {
+    id: 'stravibe',
+    date: '2026-10',
+    title: 'Stravibe',
+    tagline: 'Strava for vibecoding: every Claude Code session becomes an activity.',
+    video: '/projects/stravibe.mp4',
+    period: 'Oct 2026',
+    categories: ['Web'],
+    description:
+      'Strava for vibecoding. Two Claude Code plugins that record every session as an activity: moving time, commits, lines changed, a "heart rate" zone from tokens per minute, cadence, and a rage meter for how often you correct Claude. The hero stat is pace in minutes per commit. One plugin prints a text card with /stravibe:activity, and the other opens a live pane beside the chat with animated charts, a mascot that runs at your pace, and your usage limit drawn as a road you run along, either a 5-hour track or a weekly marathon.',
+    tags: ['TypeScript', 'JavaScript', 'Claude Code Plugins'],
+    links: [{ label: 'GitHub', url: 'https://github.com/MakiKainan/Stravibe' }],
+  },
+  {
     id: 'salahbro',
     date: '2026-10',
     title: 'Salahbro',
